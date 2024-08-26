@@ -1,0 +1,52 @@
+Dentro de uma pasta, criamos uma pasta chamada api e dentro dele outra chamada bd e então cria-se um dockerfile e o preenche com o seguinte código, onde from é usado para copiar uma imagem do dockerhub e env para criar variáveis de ambiente que ajudam a configurar o banco:
+
+FROM mysql
+ENV MYSQL_ROOT_PASSWORD programadorabordo
+
+Após finalizar o Dockerfile da base de dados, abrimos o Docker Desktop e inserimos no terminal:
+
+docker build -t mysql-image -f api/db/Dockerfile.
+
+-t indica tag- o nome que você escolheu para a imagem, -f é usado p especificar o arquivo dockerfile p criar a imagem, e o . no final constrói a imagem na pasta atual. Rodando o seguinte comando conseguimos visualizar todas as imagens disponíveis:
+
+docker image ls
+
+Agora vamos criar o container que ira usar a imagem que criamos, -d serve p q o terminal não fique inutilizado pelos dados do container que criamos enquanto ele estiver de pé, --rm significa que se já existia o container ele vai ser excluído para a criação do novo, --name é o nome do container seguido pela imagem usada
+
+docker run -d --rm --name mysql-container mysql-image
+
+Após isso, executamos o seguinte comando para visualizar os containers que estão de pé:
+
+Docker os
+
+Agora vamos criar um banco de dados, uma tabela e vamos inserir alguns valores e depois vamos visualizar ela... criamos um arquivo chamado script.sql na pasta db, dentro dele criamos um bando de dados e o acessamos, criamos a tabela e inserimos dois produtos:
+
+CREATE DATABASE IF NOT EXISTS
+	programadorabordo;
+USE programadorabordo;
+
+CREATE TABLE IF NOT EXISTS products (
+	id INT(11) AUTO_INCREMENT,
+	name VARCHAR(255),
+	price DECIMAL(10, 2),
+	PRIMARY KEY (id)
+);
+
+INSERT INTO products VALUE(0, 'Curso Front-end especialista', 2500);
+INSERT INTO products VALUE(0, 'Curso JS Fullstack', 900);
+
+
+
+11:00
+
+
+
+
+
+
+
+
+
+
+
+
